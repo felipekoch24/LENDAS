@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Os Lendários - Galeria</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>OS LENDÁRIOS</h1>
+        <p>Galeria Completa de Vídeos</p>
+    </header>
+
+    <main class="video-container" id="galeria">
+        <!-- Os vídeos entram aqui automaticamente pelo JSON -->
+    </main>
+
+    <script>
+        fetch('videos.json')
+            .then(response => response.json())
+            .then(videos => {
+                const container = document.getElementById('galeria');
+                videos.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'video-card';
+                    card.innerHTML = `
+                        <h2>${item.titulo}</h2>
+                        <video controls width="100%">
+                            <source src="${item.arquivo}" type="video/mp4">
+                            Seu navegador não suporta vídeo.
+                        </video>
+                    `;
+                    container.appendChild(card);
+                });
+            });
+    </script>
+
+</body>
+</html>
